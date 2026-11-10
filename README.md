@@ -1,53 +1,58 @@
-# 🛵 Shipper Sài Gòn — MVP 0.1.1
+# 🛵 Shipper Sài Gòn 2D — Phiên Bản Hoàn Thiện
 
-Game giao hàng và bàn thí nghiệm tìm đường trong thành phố động, triển khai từ kế hoạch trong `docs/shipper_game_design.md`.
+Tựa game giao hàng 2D sống động kết hợp bàn thí nghiệm tìm đường AI trong thành phố động Sài Gòn 60 FPS, triển khai từ kế hoạch trong `docs/shipper_game_design.md`.
 
-**Đọc `PROJECT_STATE.md` trước khi tiếp tục phát triển.** File này giữ yêu cầu, quyết định, trạng thái và việc tiếp theo; `CHANGELOG.md` ghi các mốc đã hoàn tất.
+## 🌟 Điểm nổi bật phiên bản 2D Nâng Cấp
+
+1. **Đồ họa & Khung hình 60 FPS mượt mà (Smooth Sub-grid Interpolation)**:
+   - Shipper và xe NPC lướt chuyển động êm ái trên đường phố giữa các tick (không giật nhảy ô).
+   - Đèn pha xe máy (Headlight) chiếu quầng sáng rọi đường, xoay góc vào cua mượt mà theo hướng di chuyển.
+   - Bản đồ phong cách phố thị Sài Gòn 2D chi tiết: nhà phố ban công bồn nước inox, vỉa hè, vạch kẻ tim đường vàng, vạch qua đường, quán ăn mái bạt sọc đỏ-vàng (P), nhà khách hàng có radar mời gọi.
+   - Lô cốt rào chắn công trình đào đường sọc vàng-đen phản quang kèm đèn chớp cảnh báo.
+
+2. **Chế độ Gameplay phong phú**:
+   - **Lái thủ công (Manual Mode)**: Người chơi trực tiếp lái xe bằng cụm phím `W/A/S/D` hoặc `Phím mũi tên` để luồn lách qua các ngõ hẻm kẹt xe và né tránh xe NPC.
+   - **Dẫn đường GPS thông minh**: Ngay cả khi lái tay, hệ thống AI vẫn chiếu đường GPS phát sáng màu xanh cyan hướng dẫn lộ trình tối ưu như Google Maps / Grab.
+   - **Tự động lái (AI Autopilot)**: AI tự tính toán và điều khiển xe đến quán lấy hàng rồi giao tận cửa nhà khách.
+   - **Còi xe máy Sài Gòn (Horn)**: Bấm còi `H` hoặc click nút còi "Bim bim!" giải tỏa ùn ứ, nhắc nhở các xe NPC xung quanh dừng lại nhường đường.
+   - **Thời tiết động (Weather Rain)**: Hiệu ứng mưa rào nhiệt đới Sài Gòn và khói xe pô xe máy sống động.
+
+3. **Âm thanh Kỹ thuật số Procedural (100% tích hợp sẵn)**:
+   - Hệ thống tự tổng hợp sóng âm stereo thời gian thực qua `pygame.mixer` & `numpy`: tiếng nhận đơn ting-ting, chuông giao hàng thành công, tiếng còi xe bim-bim, âm thanh va quẹt và còi báo trễ giờ. Không cần file âm thanh ngoài.
+
+4. **Kiểm thử Thuật toán Toàn diện (16/16 Unit Tests PASS)**:
+   - Bộ test suite mở rộng kiểm tra mọi trường hợp góc cạnh: đồ thị cô lập không lối thoát, biên kích thước 3×3 đến 30×30, D* Lite dao động liên tục 150 bước, halo sensing, tính bất biến seed và benchmark.
 
 ## Chạy trên Windows / Visual Studio Code
 
-1. Cài Python 3.10 trở lên. Giải nén bộ mã nguồn.
-2. Trong VS Code, chọn **File → Open Folder** và mở thư mục `shipper-game` (nơi có `main.py` và `requirements.txt`).
-3. Mở **Terminal → New Terminal**, chạy từng dòng:
+1. Cài Python 3.10 trở lên.
+2. Trong VS Code, chọn **File → Open Folder** và mở thư mục `shipper-game`.
+3. Mở **Terminal → New Terminal**, chạy:
 
 ```powershell
-py --version
-py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe main.py
 ```
 
-Các lệnh sử dụng trực tiếp Python trong môi trường, không cần activate. Nếu máy không có lệnh `py`, thay hai lệnh đầu bằng `python --version` và `python -m venv .venv`.
+Hoặc nhấp đúp trực tiếp vào file **`start_windows.bat`** để chạy ngay.
 
-Nếu báo thiếu `requirements.txt`, terminal đang sai thư mục: mở thư mục con `shipper-game`, không mở thư mục ngoài của file ZIP. Sau khi cài xong, có thể bấm `start_windows.bat` để chạy.
-
-Linux/macOS:
-
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python main.py
-```
-
-## Chơi và demo
-
-Trong màn hình cài đặt, chọn seed, số xe, tầm nhìn, số đơn, mật độ nhà, giới hạn tick và bộ não. Bấm **Bắt đầu giao hàng**. Chương trình tự chọn đơn có điểm nhận gần nhất theo Manhattan, đi lấy hàng rồi giao.
+## Điều khiển trong Game
 
 | Điều khiển | Chức năng |
 |---|---|
-| Space | Tạm dừng / tiếp tục; từ cài đặt thì bắt đầu |
-| 1 | A* mỗi tick — S1 |
-| 2 | A* khi cần — S2 |
-| 3 | D* Lite — S3 |
-| 4 | D* Lite + halo — S4 |
-| 5 / 6 / 7 | BFS / Greedy / Weighted A* |
-| V | Ô vừa được xử lý |
-| T | Làm mờ vùng ngoài tầm nhìn |
-| R | Chơi lại cùng seed và cấu hình |
-| + / − | Tốc độ 1×, 2×, 4×, 8× |
-| Esc | Về cài đặt |
-| Chuột trái vào đường | Thêm / gỡ vật cản thủ công |
-| Chuột phải vào đường | Bật / tắt kẹt xe cost 5 |
+| **W / A / S / D** hoặc **Mũi tên** | Lái xe máy shipper di chuyển trong chế độ Lái Tay |
+| **M** | Chuyển đổi qua lại giữa **Lái Tay (Manual)** và **Tự Động (AI)** |
+| **H** | Bấm còi xe máy Sài Gòn "Bim bim!" giải tỏa ùn ứ |
+| **Space** | Tạm dừng / Tiếp tục; Bắt đầu từ màn hình cài đặt |
+| **S** | Bật / Tắt âm thanh |
+| **W** (ở chế độ AI) | Bật / Tắt thời tiết mưa nhiệt đới Sài Gòn |
+| **1 — 7** | Đổi trực tiếp 7 bộ não AI (A*, D* Lite, Halo, BFS, Greedy,...) |
+| **+ / −** | Điều chỉnh tốc độ mô phỏng (1×, 2×, 4×, 8×) |
+| **V** | Ẩn / hiện các ô trạng thái AI vừa duyệt |
+| **T** | Ẩn / hiện lớp mờ sương mù ngoài tầm nhìn |
+| **R** | Chơi lại ván đấu cùng seed bản đồ |
+| **Esc** | Trở về màn hình Cài đặt cấu hình |
+| **Chuột trái vào đường** | Đặt / tháo lô cốt công trình rào chắn đường |
+| **Chuột phải vào đường** | Tạo / xóa điểm kẹt xe ùn tắc |
 
 Nhà tĩnh sinh sẵn không bị xóa bằng chuột. Không đặt vật cản ngay dưới shipper. Vật cản ngoài tầm nhìn chỉ được AI phát hiện khi tới gần. Hình vẽ cho người xem thấy toàn bản đồ; lớp làm mờ biểu diễn giới hạn thông tin của shipper.
 

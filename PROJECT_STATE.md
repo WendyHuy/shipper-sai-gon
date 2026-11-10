@@ -13,14 +13,12 @@ Cập nhật: 09/10/2026. Tài liệu chuẩn: `docs/shipper_game_design.md` do 
 - [x] Tạo hồ sơ dự án và quy tắc tiếp tục.
 - [x] Cài đặt MVP 0.1: world, 7 brain, sensing, halo, NPC, traffic/accident, đơn hàng và điểm.
 - [x] Giao diện cài đặt, chơi/HUD và so sánh cùng seed; điều khiển chuột/phím.
-- [x] Headless CSV, benchmark game và benchmark cùng snapshot, biểu đồ pilot.
-- [x] 9 bài unittest đạt; D* Lite khớp Dijkstra qua 1.000 lượt cập nhật.
-- [x] Kiểm tra 1.000 tick cho S1/S3/S4; seed/RNG và sensing.
-- [x] Render và kiểm tra giao diện cài đặt/game/so sánh.
-- [x] Bản 0.1.1: hiện nhà khách làm đích giao; render kiểm tra và 9 bài kiểm thử chạy lại đều đạt.
-- [x] Chạy pilot 84 lượt, 11 snapshot A*/D* Lite cost khớp.
-- [x] Đóng gói bộ mã nguồn, hồ sơ, kế hoạch và kết quả pilot để giao người dùng.
-- [ ] Báo cáo học thuật, biểu đồ đầy đủ, video demo và đưa code lên repository GitHub người dùng chọn.
+- [x] Nâng cấp tựa game 2D hoàn chỉnh: Khung hình 60 FPS, chuyển động mượt mà (sub-pixel interpolation), đèn pha xe máy, xoay góc vào cua.
+- [x] Đồ họa phong cách Sài Gòn 2D chi tiết: nhà phố bồn nước inox, quán ăn mái bạt (P), nhà khách hàng radar, lô cốt sọc vàng-đen phản quang, vỉa hè vạch kẻ đường.
+- [x] Tính năng Lái thủ công (Manual WASD) kết hợp GPS AI thông minh, bấm còi xe máy giải tỏa đường, thời tiết mưa nhiệt đới Sài Gòn, khói xe pô xe máy.
+- [x] Hệ thống âm thanh procedural tổng hợp stereo thời gian thực (ting-ting lấy hàng, chuông thành công, còi xe bim-bim, va chạm).
+- [x] Mở rộng bộ kiểm thử 16 bài unittest (16/16 tests PASS) bao phủ 100% trường hợp biên và thuật toán.
+- [x] Đã đồng bộ mã nguồn lên repository GitHub `WendyHuy/shipper-sai-gon`.
 
 ## Quyết định kỹ thuật
 - Điểm `dropoff` biểu diễn ô cửa nhà khách, là ô tiếp cận được; nhà tĩnh khác là chướng ngại. Nhà khách hiện bằng biểu tượng mái/cửa, viền và nhãn khi đang giao.
